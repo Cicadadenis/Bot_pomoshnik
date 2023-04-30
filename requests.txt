@@ -6,5 +6,4 @@ my_fake_useragent
 pyshorteners
 Pillow
 stdiomask
-pyminifier
 smsactivateru
