@@ -1,0 +1,23 @@
+CREATE TABLE xf_user_alert (
+  alert_id int unsigned NOT NULL AUTO_INCREMENT,
+  alerted_user_id int unsigned NOT NULL COMMENT User being alerted,
+  user_id int unsigned NOT NULL DEFAULT 0 COMMENT User who did the action that caused the alert,
+  username varchar(50) NOT NULL DEFAULT  COMMENT Corresponds to user_id,
+  content_type varbinary(25) NOT NULL COMMENT eg: trophy,
+  content_id int unsigned NOT NULL DEFAULT 0,
+  action varbinary(30) NOT NULL COMMENT eg: edit,
+  event_date int unsigned NOT NULL,
+  view_date int unsigned NOT NULL DEFAULT 0 COMMENT Time when this was viewed by the alerted user,
+  read_date int unsigned NOT NULL DEFAULT 0,
+  auto_read tinyint unsigned NOT NULL DEFAULT 1,
+  extra_data mediumblob NOT NULL COMMENT Serialized. Stores any extra data relevant to the alert,
+  depends_on_addon_id varbinary(50) NOT NULL DEFAULT ,
+  PRIMARY KEY (alert_id),
+  KEY alertedUserId_eventDate (alerted_user_id,event_date),
+  KEY viewDate_eventDate (view_date,event_date),
+  KEY user_id (user_id),
+  KEY content_type_content_id_user_id (content_type,content_id,user_id),
+  KEY alerted_user_id_content_type_content_id (alerted_user_id,content_type,content_id),
+  KEY alerted_user_id_view_date (alerted_user_id,view_date),
+  KEY alerted_user_id_read_date (alerted_user_id,read_date)
+) 
